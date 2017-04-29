@@ -18,7 +18,6 @@ hbs.registerHelper('screamIt',(text)=>{
 app.use((req,res,next)=>{
   var now = new Date().toString();
   var log = `${now} : ${req.method} ${req.url}`;
-  console.log(log);
   fs.appendFile('server.log', log + '\n');
   next();
 });
@@ -28,6 +27,7 @@ app.use((req,res,next)=>{
 // });
 
 app.use(express.static(__dirname + '/public'));
+
 app.get('/',(req,res)=>{
   res.render('home.hbs',{
     welcomeMessage:'Hello Welcome',
@@ -48,6 +48,11 @@ app.get('/bad',(req,res)=>{
   })
 });
 
+app.get('/projects',(req,res)=>{
+  res.render('projects.hbs',{
+    pageTitle:'Project Page'
+  });
+});
 
 app.listen(port,()=>{
   console.log(`Server is listening on port ${port}`);
